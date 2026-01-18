@@ -150,7 +150,7 @@
         }
 
         .close:hover {
-            color: #ff4757;
+            color: #000000;
             transform: scale(1.1);
         }
 
@@ -180,20 +180,46 @@
             border-bottom: 2px solid #e0e0e0;
         }
 
-        /* IFRAME para fluxogramas */
-        .iframe-container {
-            width: 100%;
-            height: 700px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            background: white;
+        /* CONTAINER PARA IMAGENS (SUBSTITUI IFRAME) */
+        .image-container {
+            text-align: center;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+            margin: 15px 0;
         }
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+            border: 1px solid #ddd;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.02);
+        }
+
+        .download-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background: #060b41;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .download-link:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         ul {
@@ -255,8 +281,8 @@
                 grid-template-columns: 1fr;
             }
             
-            .iframe-container {
-                height: 500px;
+            .image-container {
+                padding: 15px;
             }
             
             .modal-content {
@@ -265,16 +291,21 @@
         }
 
         @media (max-width: 480px) {
-            .iframe-container {
-                height: 400px;
+            .image-container img {
+                max-width: 95%;
+            }
+            
+            .download-link {
+                padding: 6px 12px;
+                font-size: 13px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔐 Playbook de Resposta a Incidentes</h1>
-        <p class="subtitle">COMPROMETIMENTO DE INFORMAÇÕES POR TIPOS DE ATAQUES</p>
+        <h1>COMPROMETIMENTO POR TIPOS DE ATAQUES</h1>
+        <p class="subtitle"> Playbook de Resposta a Incidentes</p>
 
         <div class="cards-grid">
             <!-- Card 1: Acesso Ativo e Persistente -->
@@ -318,9 +349,13 @@
                 </div>
 
                 <div class="modal-section">
-                    <h3>Fluxograma do Ataque </h3>
-                    <div class="iframe-container">
-                        <iframe src="ataques/acesso-ativo.html" title="Acesso Ativo e Persistente"></iframe>
+                    <h3>Fluxograma do Ataque</h3>
+                    <div class="image-container">
+                        <img src="ataques/acesso.png" alt="Fluxograma de Ataque de Acesso Ativo e Persistente">
+                        <br>
+                        <a href="ataques/acesso.png" download="fluxograma-acesso-ativo.png" class="download-link">
+                            📥 Baixar Imagem em Alta Qualidade
+                        </a>
                     </div>
                 </div>
 
@@ -366,8 +401,12 @@
 
                 <div class="modal-section">
                     <h3>Fluxograma do Ataque</h3>
-                    <div class="iframe-container">
-                        <iframe src="ataques/exposicao.html" title="Exposição de Ativos"></iframe>
+                    <div class="image-container">
+                        <img src="ataques/exposicao.png" alt="Fluxograma de Ataque de Exposição de Ativos">
+                        <br>
+                        <a href="ataques/exposicao.png" download="fluxograma-exposicao.png" class="download-link">
+                            📥 Baixar Imagem em Alta Qualidade
+                        </a>
                     </div>
                 </div>
 
@@ -413,8 +452,12 @@
 
                 <div class="modal-section">
                     <h3>Fluxograma do Ataque</h3>
-                    <div class="iframe-container">
-                        <iframe src="ataques/evasao.html" title="Evasão de Defesas"></iframe>
+                    <div class="image-container">
+                        <img src="ataques/evasao.png" alt="Fluxograma de Ataque de Evasão de Defesas">
+                        <br>
+                        <a href="ataques/evasao.png" download="fluxograma-evasao.png" class="download-link">
+                            📥 Baixar Imagem em Alta Qualidade
+                        </a>
                     </div>
                 </div>
 
@@ -460,8 +503,12 @@
 
                 <div class="modal-section">
                     <h3>Fluxograma do Ataque</h3>
-                    <div class="iframe-container">
-                        <iframe src="ataques/movimentacao.html" title="Movimentação Lateral"></iframe>
+                    <div class="image-container">
+                        <img src="ataques/movimentacao.png" alt="Fluxograma de Ataque de Movimentação Lateral">
+                        <br>
+                        <a href="ataques/movimentacao.png" download="fluxograma-movimentacao.png" class="download-link">
+                            📥 Baixar Imagem em Alta Qualidade
+                        </a>
                     </div>
                 </div>
 
@@ -507,14 +554,6 @@
         function openModal(modalId) {
             document.getElementById(modalId).style.display = 'block';
             document.body.style.overflow = 'hidden';
-            
-            // Forçar reload do iframe para garantir que carregue
-            setTimeout(() => {
-                const iframe = document.querySelector(`#${modalId} iframe`);
-                if (iframe) {
-                    iframe.src = iframe.src; // Recarregar
-                }
-            }, 100);
         }
 
         function closeModal(modalId) {
@@ -541,21 +580,6 @@
                 document.body.style.overflow = 'auto';
             }
         };
-
-        // Pré-carregar os iframes quando a página carregar
-        window.addEventListener('load', function() {
-            // Criar iframes ocultos para pré-carregamento
-            const modalIds = ['modal-acesso-ativo', 'modal-exposicao', 'modal-evasao', 'modal-movimentacao'];
-            modalIds.forEach(id => {
-                const iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                iframe.src = document.querySelector(`#${id} iframe`).src;
-                document.body.appendChild(iframe);
-                setTimeout(() => {
-                    document.body.removeChild(iframe);
-                }, 3000);
-            });
-        });
     </script>
 </body>
 </html>
