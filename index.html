@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Playbook de Ataques</title>
+    <title>Comprometimento por Tipos de Ataques</title>
     <style>
         * {
             margin: 0;
@@ -27,7 +27,7 @@
         h1 {
             color: white;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 10px;
             font-size: 2.5rem;
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
@@ -37,6 +37,7 @@
             text-align: center;
             margin-bottom: 50px;
             font-size: 1.1rem;
+            opacity: 0.9;
         }
 
         .cards-grid {
@@ -77,6 +78,15 @@
             flex-grow: 1;
         }
 
+        .card-exemplo {
+            background: #f0f8ff;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            border-left: 3px solid #060b41;
+        }
+
         .criticidade {
             display: inline-block;
             padding: 5px 15px;
@@ -86,18 +96,28 @@
         }
 
         .critica {
-            background-color: #fa2c2c;
+            background-color: #bb4d2c;
             color: white;
         }
 
         .alta {
-            background-color: #fc871a;
+            background-color: #cb802f;
             color: white;
         }
 
         .media {
-            background-color: #f4f745;
+            background-color: #e1bd43;
             color: #000000;
+        }
+
+        .baixa {
+            background-color: #abbd43;
+            color: #000000;
+        }
+
+        .muito-baixa {
+            background-color: #86a048;
+            color: white;
         }
 
         /* MODAL */
@@ -163,6 +183,7 @@
         .modal-header h2 {
             color: #2c3e50;
             font-size: 2rem;
+            margin-bottom: 10px;
         }
 
         .modal-section {
@@ -180,48 +201,6 @@
             border-bottom: 2px solid #e0e0e0;
         }
 
-        /* CONTAINER PARA IMAGENS (SUBSTITUI IFRAME) */
-        .image-container {
-            text-align: center;
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #dee2e6;
-            margin: 15px 0;
-        }
-
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
-            border: 1px solid #ddd;
-        }
-
-        .image-container img:hover {
-            transform: scale(1.02);
-        }
-
-        .download-link {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 8px 16px;
-            background: #060b41;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .download-link:hover {
-            background: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
         ul {
             padding-left: 25px;
             line-height: 1.8;
@@ -231,20 +210,55 @@
             margin-bottom: 8px;
         }
 
-        .ferramentas-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
+        .tabela-ataque {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        .ferramenta {
-            background: #060b41;
+        .tabela-ataque thead tr {
+            background: linear-gradient(135deg, #060b41, #1e3799);
             color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
         }
+
+        .tabela-ataque th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .tabela-ataque tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tabela-ataque tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .tabela-ataque td {
+            padding: 15px;
+            vertical-align: top;
+        }
+
+        .tabela-ataque td:first-child {
+            font-weight: 600;
+            color: #060b41;
+        }
+
+        .objetivo-box, .risco-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid;
+        }
+
+        .objetivo-box { border-left-color: #28a745; }
+        .risco-box { border-left-color: #dc3545; }
 
         footer {
             text-align: center;
@@ -281,23 +295,14 @@
                 grid-template-columns: 1fr;
             }
             
-            .image-container {
-                padding: 15px;
-            }
-            
             .modal-content {
                 padding: 20px 15px;
             }
-        }
 
-        @media (max-width: 480px) {
-            .image-container img {
-                max-width: 95%;
-            }
-            
-            .download-link {
-                padding: 6px 12px;
-                font-size: 13px;
+            .tabela-ataque {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
             }
         }
     </style>
@@ -305,34 +310,46 @@
 <body>
     <div class="container">
         <h1>COMPROMETIMENTO POR TIPOS DE ATAQUES</h1>
-        <p class="subtitle"> Playbook de Resposta a Incidentes</p>
+        <p class="subtitle">Vazamento de Informações UFRGS</p>
 
         <div class="cards-grid">
             <!-- Card 1: Acesso Ativo e Persistente -->
             <div class="card" onclick="openModal('modal-acesso-ativo')">
                 <h3>Acesso Ativo e Persistente</h3>
-                <p>Atacante estabelece mecanismos para permanecer no ambiente através de malwares, backdoors e chaves de API comprometidas.</p>
+                <div class="card-exemplo">
+                    <strong>Exemplos:</strong> Infostealer, Persistência de Dados, Chaves de API Vazadas
+                </div>
+                <p>Atacante estabelece presença duradoura na infraestrutura para exfiltração contínua de dados e monitoramento de atividades administrativas/acadêmicas.</p>
                 <div class="criticidade critica">Criticidade: Crítica</div>
             </div>
 
-            <!-- Card 2: Exposição -->
+            <!-- Card 2: Exposição e Má Configuração -->
             <div class="card" onclick="openModal('modal-exposicao')">
-                <h3>Exposição de Ativos</h3>
-                <p>Serviços, dados ou credenciais expostos publicamente, aumentando a superfície de ataque.</p>
+                <h3>Exposição e Má Configuração</h3>
+                <div class="card-exemplo">
+                    <strong>Exemplos:</strong> Buckets Públicos, Repositórios Expostos, ACLs Excessivas
+                </div>
+                <p>Falhas na higiene digital e configuração de serviços expostos à internet que permitem acesso não autorizado a dados sensíveis.</p>
                 <div class="criticidade alta">Criticidade: Alta</div>
             </div>
 
-            <!-- Card 3: Evasão -->
+            <!-- Card 3: Evasão e Manipulação -->
             <div class="card" onclick="openModal('modal-evasao')">
-                <h3>Evasão de Defesas</h3>
-                <p>Técnicas utilizadas para evitar detecção, como ofuscação, proxies e desativação de logs.</p>
+                <h3>Evasão e Manipulação</h3>
+                <div class="card-exemplo">
+                    <strong>Exemplos:</strong> Contorno de DLP/WAF, Phishing Direcionado, Abuso de Endpoints
+                </div>
+                <p>Técnicas para enganar sistemas de defesa, contornar ferramentas de segurança e extrair dados silenciosamente.</p>
                 <div class="criticidade alta">Criticidade: Alta</div>
             </div>
 
-            <!-- Card 4: Movimentação -->
+            <!-- Card 4: Movimentação e Uso Indevido -->
             <div class="card" onclick="openModal('modal-movimentacao')">
-                <h3>Movimentação Lateral</h3>
-                <p>Movimento do atacante dentro da rede para acessar sistemas e dados adicionais.</p>
+                <h3>Movimentação e Uso Indevido</h3>
+                <div class="card-exemplo">
+                    <strong>Exemplos:</strong> Movimentação Interna, Permissões Excessivas, Shadow IT
+                </div>
+                <p>Atividades após o perímetro ser ultrapassado, expandindo o alcance da invasão e explorando confiança interna.</p>
                 <div class="criticidade media">Criticidade: Média</div>
             </div>
         </div>
@@ -349,38 +366,66 @@
                 </div>
 
                 <div class="modal-section">
-                    <h3>Fluxograma do Ataque</h3>
-                    <div class="image-container">
-                        <img src="ataques/acesso.png" alt="Fluxograma de Ataque de Acesso Ativo e Persistente">
-                        <br>
-                        <a href="ataques/acesso.png" download="fluxograma-acesso-ativo.png" class="download-link">
-                            📥 Baixar Imagem em Alta Qualidade
-                        </a>
+                    <h3>Visão Geral do Ataque</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;">Este vetor representa o cenário de maior risco, onde o atacante estabelece uma presença duradoura na infraestrutura da Universidade. O risco reside na consolidação do controle pelo invasor, permitindo exfiltração contínua e monitoramento prolongado.</p>
+                    
+                    <table class="tabela-ataque">
+                        <thead>
+                            <tr>
+                                <th>Ataque</th>
+                                <th>Exemplo Prático</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Malware (Infostealer)</td>
+                                <td>Captura contínua de credenciais de sistemas administrativos e senhas de servidores.</td>
+                            </tr>
+                            <tr>
+                                <td>Persistência de Dados</td>
+                                <td>Agente malicioso extrai backups completos de bancos de dados da UFRGS periodicamente.</td>
+                            </tr>
+                            <tr>
+                                <td>Chaves de API Vazadas</td>
+                                <td>Chave de integração exposta usada para baixar dados sensíveis de sistemas em nuvem.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Objetivo do Ataque</h3>
+                    <div class="objetivo-box">
+                        <p><strong>Manter acesso prolongado</strong> para exfiltração contínua de dados e monitoramento de atividades administrativas/acadêmicas.</p>
+                    </div>
+                    
+                    <h3>Risco Institucional</h3>
+                    <div class="risco-box">
+                        <p><strong>Comprometimento da soberania dos dados</strong>, perda de credibilidade perante órgãos financiadores e sanções graves da LGPD por vazamentos crônicos.</p>
                     </div>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Como Mitigar</h3>
+                    <h3>Ações de Prevenção</h3>
                     <ul>
-                        <li>Implementar EDR (Endpoint Detection and Response) em todos os endpoints</li>
-                        <li>Rotina de revogação e renovação de chaves de API periodicamente</li>
+                        <li><strong>Implementação de MFA (Autenticação Multi-fator)</strong> em todos os níveis de acesso administrativo</li>
+                        <li><strong>Rotação obrigatória de chaves de API</strong> periodicamente</li>
+                        <li><strong>Uso de EDR (Endpoint Detection and Response)</strong> em todos os endpoints críticos</li>
                         <li>Monitoramento de processos suspeitos e comportamentos anômalos</li>
-                        <li>Uso de lista de permissões (allowlisting) em vez de negação</li>
                         <li>Análise regular de logs de autenticação e acesso</li>
                         <li>Segmentação de rede para limitar movimentação lateral</li>
                     </ul>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Ferramentas Recomendadas</h3>
-                    <div class="ferramentas-list">
-                        <span class="ferramenta">Microsoft Defender for Endpoint</span>
-                        <span class="ferramenta">CrowdStrike Falcon</span>
-                        <span class="ferramenta">Wazuh</span>
-                        <span class="ferramenta">OSSEC</span>
-                        <span class="ferramenta">Sysmon</span>
-                        <span class="ferramenta">Elastic Security</span>
-                    </div>
+                    <h3>Ações de Mitigação</h3>
+                    <ul>
+                        <li><strong>Isolamento imediato de servidores infectados</strong> (quarentena de rede)</li>
+                        <li><strong>Revogação total de tokens de acesso</strong> e chaves comprometidas</li>
+                        <li><strong>Varredura forense</strong> para eliminação de backdoors e pontos de persistência</li>
+                        <li>Remover privilégios do atacante e recuperar controle total do ambiente</li>
+                        <li>Impedir qualquer acesso remoto não autorizado</li>
+                    </ul>
                 </div>
 
                 <div class="modal-controls">
@@ -390,48 +435,76 @@
             </div>
         </div>
 
-        <!-- Modal 2: Exposição -->
+        <!-- Modal 2: Exposição e Má Configuração -->
         <div id="modal-exposicao" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('modal-exposicao')">&times;</span>
                 <div class="modal-header">
-                    <h2>Exposição de Ativos</h2>
+                    <h2>Exposição e Má Configuração</h2>
                     <div class="criticidade alta" style="display: inline-block;">Criticidade: Alta</div>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Fluxograma do Ataque</h3>
-                    <div class="image-container">
-                        <img src="ataques/exposicao.png" alt="Fluxograma de Ataque de Exposição de Ativos">
-                        <br>
-                        <a href="ataques/exposicao.png" download="fluxograma-exposicao.png" class="download-link">
-                            📥 Baixar Imagem em Alta Qualidade
-                        </a>
+                    <h3>Visão Geral do Ataque</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;">Incidentes causados por falhas na higiene digital e na configuração de serviços expostos à internet. O atacante explora facilidades e erros de configuração para obter dados sem a necessidade de quebrar defesas complexas.</p>
+                    
+                    <table class="tabela-ataque">
+                        <thead>
+                            <tr>
+                                <th>Ataque</th>
+                                <th>Exemplo Prático</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Buckets Públicos</td>
+                                <td>Bucket S3 configurado como público indexado por motores de busca.</td>
+                            </tr>
+                            <tr>
+                                <td>Repositórios Mal Configurados</td>
+                                <td>Arquivos .env ou códigos-fonte com senhas em Git público (GitHub/GitLab).</td>
+                            </tr>
+                            <tr>
+                                <td>ACLs Excessivas</td>
+                                <td>Usuário tem acesso a pastas de diretórios administrativos que não pertencem à sua função.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Objetivo do Ataque</h3>
+                    <div class="objetivo-box">
+                        <p><strong>Explorar facilidades e erros de configuração</strong> para obter dados sem a necessidade de quebrar defesas complexas.</p>
+                    </div>
+                    
+                    <h3>Risco Institucional</h3>
+                    <div class="risco-box">
+                        <p><strong>Exposição pública de dados sensíveis</strong> em motores de busca, facilitando fraudes contra a comunidade acadêmica e gerando multas por negligência técnica (LGPD).</p>
                     </div>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Como Mitigar</h3>
+                    <h3>Ações de Prevenção</h3>
                     <ul>
-                        <li>Scanners regulares de superfície de ataque (ex: Shodan, Censys)</li>
+                        <li><strong>Auditorias periódicas de permissões</strong> em ambientes de nuvem</li>
+                        <li><strong>Uso de ferramentas de Secret Scanning</strong> em repositórios Git</li>
+                        <li><strong>Endurecimento (Hardening)</strong> de servidores e aplicações</li>
+                        <li>Scanners regulares de superfície de ataque (Shodan, Censys)</li>
+                        <li>Revisão de permissões de buckets S3 e serviços cloud</li>
                         <li>Configuração adequada de firewalls e grupos de segurança</li>
-                        <li>Monitoramento de vazamento de dados em fóruns e dark web</li>
-                        <li>Uso de serviços como HaveIBeenPwned para credenciais</li>
-                        <li>Implementação de bastion hosts para acesso remoto</li>
-                        <li>Revisão periódica de permissões de S3 buckets e serviços cloud</li>
                     </ul>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Ferramentas Recomendadas</h3>
-                    <div class="ferramentas-list">
-                        <span class="ferramenta">Shodan</span>
-                        <span class="ferramenta">Nessus</span>
-                        <span class="ferramenta">Nmap</span>
-                        <span class="ferramenta">CloudSploit</span>
-                        <span class="ferramenta">HaveIBeenPwned API</span>
-                        <span class="ferramenta">Prowler</span>
-                    </div>
+                    <h3>Ações de Mitigação</h3>
+                    <ul>
+                        <li><strong>Alteração imediata da visibilidade</strong> de repositórios/buckets para privado</li>
+                        <li><strong>Invalidação de todos os segredos expostos</strong> (senhas, chaves, tokens)</li>
+                        <li><strong>Corrigir a má configuração de origem</strong> e reduzir superfície de ataque</li>
+                        <li>Realizar nova varredura de vulnerabilidades para validar correção</li>
+                        <li>Documentar o incidente para evitar reincidência</li>
+                    </ul>
                 </div>
 
                 <div class="modal-controls">
@@ -441,48 +514,75 @@
             </div>
         </div>
 
-        <!-- Modal 3: Evasão -->
+        <!-- Modal 3: Evasão e Manipulação -->
         <div id="modal-evasao" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('modal-evasao')">&times;</span>
                 <div class="modal-header">
-                    <h2>Evasão de Defesas</h2>
+                    <h2>Evasão e Manipulação</h2>
                     <div class="criticidade alta" style="display: inline-block;">Criticidade: Alta</div>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Fluxograma do Ataque</h3>
-                    <div class="image-container">
-                        <img src="ataques/evasao.png" alt="Fluxograma de Ataque de Evasão de Defesas">
-                        <br>
-                        <a href="ataques/evasao.png" download="fluxograma-evasao.png" class="download-link">
-                            📥 Baixar Imagem em Alta Qualidade
-                        </a>
+                    <h3>Visão Geral do Ataque</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;">Técnicas que visam enganar tanto os sistemas de defesa quanto os usuários da Universidade. O contorno de ferramentas de defesa (WAF/DLP) através de criptografia ou ofuscação permite a extração de grandes volumes de dados sem o disparo de alertas imediatos.</p>
+                    
+                    <table class="tabela-ataque">
+                        <thead>
+                            <tr>
+                                <th>Ataque</th>
+                                <th>Exemplo Prático</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Contorno de DLP/WAF</td>
+                                <td>Uso de criptografia ou injeção SQL para extrair dados sem disparar alertas de segurança.</td>
+                            </tr>
+                            <tr>
+                                <td>Phishing Direcionado</td>
+                                <td>E-mail falso para servidor da UFRGS solicitando planilhas de orçamentos ou dados de alunos.</td>
+                            </tr>
+                            <tr>
+                                <td>Abuso de Endpoints</td>
+                                <td>Chamadas diretas a APIs sem autenticação que retornam registros em formato JSON.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Objetivo do Ataque</h3>
+                    <div class="objetivo-box">
+                        <p><strong>Exfiltrar dados de forma silenciosa</strong> e contornar bloqueios automáticos de segurança sem detecção imediata.</p>
+                    </div>
+                    
+                    <h3>Risco Institucional</h3>
+                    <div class="risco-box">
+                        <p><strong>Roubo silencioso de propriedade intelectual</strong> e manipulação de fluxos financeiros ou administrativos, podendo operar por meses sem detecção.</p>
                     </div>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Como Mitigar</h3>
+                    <h3>Ações de Prevenção</h3>
                     <ul>
-                        <li>Implementar análise comportamental (UEBA)</li>
-                        <li>Monitorar tentativas de desativação de logs ou antivírus</li>
-                        <li>Configurar regras de detecção baseadas em tráfego anômalo</li>
-                        <li>Usar honeypots para detectar técnicas de evasão</li>
-                        <li>Revisar logs de segurança regularmente em busca de gaps</li>
-                        <li>Implementar duplo fator de autenticação (2FA) em todos os acessos</li>
+                        <li><strong>Treinamentos de conscientização (anti-phishing)</strong> para toda comunidade acadêmica</li>
+                        <li><strong>Configuração rigorosa de WAF</strong> com regras para injeção SQL e RFI/LFI</li>
+                        <li><strong>Monitoramento de comportamento anômalo</strong> com UEBA</li>
+                        <li>Foco na integridade dos logs e visibilidade profunda do sistema</li>
+                        <li>Bloquear táticas de ocultação (ofuscação, deleção de logs)</li>
                     </ul>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Ferramentas Recomendadas</h3>
-                    <div class="ferramentas-list">
-                        <span class="ferramenta">Splunk UEBA</span>
-                        <span class="ferramenta">Elastic SIEM</span>
-                        <span class="ferramenta">Canary Tokens</span>
-                        <span class="ferramenta">Zeek</span>
-                        <span class="ferramenta">Wireshark</span>
-                        <span class="ferramenta">YARA</span>
-                    </div>
+                    <h3>Ações de Mitigação</h3>
+                    <ul>
+                        <li><strong>Bloqueio de IPs de origem</strong> no firewall de borda</li>
+                        <li><strong>Atualização de regras de firewall</strong> e WAF com base no ataque identificado</li>
+                        <li><strong>Comunicação imediata aos usuários</strong> que possam ter sido enganados por Phishing</li>
+                        <li>Garantir que logs não foram apagados pelo atacante</li>
+                        <li>Reativar ferramentas de segurança desativadas</li>
+                    </ul>
                 </div>
 
                 <div class="modal-controls">
@@ -492,48 +592,76 @@
             </div>
         </div>
 
-        <!-- Modal 4: Movimentação -->
+        <!-- Modal 4: Movimentação e Uso Indevido -->
         <div id="modal-movimentacao" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('modal-movimentacao')">&times;</span>
                 <div class="modal-header">
-                    <h2>Movimentação Lateral</h2>
+                    <h2>Movimentação e Uso Indevido</h2>
                     <div class="criticidade media" style="display: inline-block;">Criticidade: Média</div>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Fluxograma do Ataque</h3>
-                    <div class="image-container">
-                        <img src="ataques/movimentacao.png" alt="Fluxograma de Ataque de Movimentação Lateral">
-                        <br>
-                        <a href="ataques/movimentacao.png" download="fluxograma-movimentacao.png" class="download-link">
-                            📥 Baixar Imagem em Alta Qualidade
-                        </a>
+                    <h3>Visão Geral do Ataque</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;">Atividades que ocorrem quando o perímetro de segurança já foi ultrapassado ou quando as políticas internas são ignoradas pela própria comunidade acadêmica. O atacante expande o alcance dentro da rede interna para identificar ativos de maior valor.</p>
+                    
+                    <table class="tabela-ataque">
+                        <thead>
+                            <tr>
+                                <th>Ataque</th>
+                                <th>Exemplo Prático</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Movimentação Interna</td>
+                                <td>Navegação em pastas de rede (SMB/NFS) em busca de arquivos sigilosos após invasão inicial.</td>
+                            </tr>
+                            <tr>
+                                <td>Permissões Excessivas</td>
+                                <td>Estagiário ou bolsista acessando dados de outros setores sem necessidade.</td>
+                            </tr>
+                            <tr>
+                                <td>Shadow IT</td>
+                                <td>Uso de nuvem pessoal para armazenar dados de pesquisas da UFRGS sem autorização da TI.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Objetivo do Ataque</h3>
+                    <div class="objetivo-box">
+                        <p><strong>Expandir o alcance da invasão</strong> dentro da rede interna para identificar e extrair ativos de maior valor (bancos de dados centrais, sistemas críticos).</p>
+                    </div>
+                    
+                    <h3>Risco Institucional</h3>
+                    <div class="risco-box">
+                        <p><strong>Descontrole sobre onde os dados da UFRGS estão armazenados</strong>, perda de governança sobre a TI e vulnerabilidade a ataques de Ransomware em larga escala.</p>
                     </div>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Como Mitigar</h3>
+                    <h3>Ações de Prevenção</h3>
                     <ul>
-                        <li>Segmentação de rede com microssegmentação</li>
-                        <li>Monitoramento de tráfego lateral entre sub-redes</li>
-                        <li>Uso de senhas diferentes por sistema/serviço</li>
-                        <li>Implementação de bastion hosts para saltos</li>
-                        <li>Análise de logs de autenticação entre sistemas</li>
-                        <li>Configuração de regras de firewall restritivas entre segmentos</li>
+                        <li><strong>Segmentação de rede (VLANs)</strong> para isolar sistemas críticos</li>
+                        <li><strong>Aplicação do Princípio do Menor Privilégio</strong> em todos os acessos</li>
+                        <li><strong>Proibição de armazenamento</strong> de dados institucionais em nuvens pessoais</li>
+                        <li>Microssegmentação para limitar tráfego lateral</li>
+                        <li>Senhas diferentes por sistema/serviço</li>
+                        <li>Bastion hosts para saltos administrativos</li>
                     </ul>
                 </div>
 
                 <div class="modal-section">
-                    <h3>Ferramentas Recomendadas</h3>
-                    <div class="ferramentas-list">
-                        <span class="ferramenta">Cisco ISE</span>
-                        <span class="ferramenta">Illumio</span>
-                        <span class="ferramenta">Guardicore</span>
-                        <span class="ferramenta">Varonis</span>
-                        <span class="ferramenta">BloodHound</span>
-                        <span class="ferramenta">PingCastle</span>
-                    </div>
+                    <h3>Ações de Mitigação</h3>
+                    <ul>
+                        <li><strong>Bloqueio de contas comprometidas</strong> e revogação de acessos</li>
+                        <li><strong>Restrição de acesso lateral</strong> entre segmentos de rede</li>
+                        <li><strong>Migração de dados de Shadow IT</strong> para repositórios homologados</li>
+                        <li>"Quebrar" o caminho do atacante dentro da rede</li>
+                        <li>Remover pontos de persistência rudimentares</li>
+                    </ul>
                 </div>
 
                 <div class="modal-controls">
@@ -544,8 +672,8 @@
         </div>
 
         <footer>
-            <p>Playbook desenvolvido para URFGS | Última atualização: Janeiro 2026</p>
-            <p>⚠️ Para uso interno e educativo.</p>
+            <p>Playbook desenvolvido para UFRGS | Última atualização: Fevereiro 2026</p>
+            <p>⚠️ Classificação: Uso Interno | Conformidade com LGPD e NIST SP 800-61</p>
         </footer>
     </div>
 
